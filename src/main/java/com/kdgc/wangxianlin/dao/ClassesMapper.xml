@@ -54,9 +54,10 @@
       <result column="s_address" property="s_address" jdbcType="VARCHAR" />
     </collection>
   </resultMap>
+
   <select id="selectStudentAndSchool" resultMap="collectionAndAssociation" parameterType="java.lang.Integer" >
     select  c.class_name,s.s_name ,sc.school_name,s.s_address,s.s_age
-    from class_wangxianlin c, student_wangxianlin s ,school_wangxianlin sc
+    from class c, student s ,school sc
     where c.class_id = s.claa_id and c.school_id = sc.id and c.class_id=#{class_id}
   </select>
 
@@ -67,6 +68,7 @@
     from class
     where class_id = #{class_id,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from class
     where class_id = #{class_id,jdbcType=INTEGER}

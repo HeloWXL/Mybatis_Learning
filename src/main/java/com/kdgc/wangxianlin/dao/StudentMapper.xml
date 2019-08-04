@@ -26,7 +26,7 @@
 
   <!--where - if查询-->
   <select id="selectByStudent" resultMap="BaseResultMap" parameterType="com.kdgc.wangxianlin.entity.Student">
-    select * from student_wangxianlin
+    select * from student
     <where>
       <if test="s_id!=null and s_id!=0">
         and s_id = #{s_id}

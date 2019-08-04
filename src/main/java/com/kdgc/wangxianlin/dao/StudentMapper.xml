@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kdgc.wangxianlin.mapper.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.kdgc.wangxianlin.entity.Student" >
+    <id column="s_id" property="s_id" jdbcType="INTEGER" />
+    <result column="s_name" property="s_name" jdbcType="VARCHAR" />
+    <result column="s_age" property="s_age" jdbcType="VARCHAR" />
+    <result column="s_sex" property="s_sex" jdbcType="VARCHAR" />
+    <result column="s_address" property="s_address" jdbcType="VARCHAR" />
+    <result column="claa_id" property="claa_id" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    s_id, s_name, s_age, s_sex, s_address, claa_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where s_id = #{s_id,jdbcType=INTEGER}
+  </select>
+
+
+
+
+
+
+  <!--where - if查询-->
+  <select id="selectByStudent" resultMap="BaseResultMap" parameterType="com.kdgc.wangxianlin.entity.Student">
+    select * from student_wangxianlin
+    <where>
+      <if test="s_id!=null and s_id!=0">
+        and s_id = #{s_id}
+      </if>
+      <if test="s_name!=null and s_name!=''">
+        and s_name = #{s_name}
+      </if>
+      <if test="s_age!=null and s_age!=''">
+        and s_age = #{s_age}
+      </if>
+      <if test="s_address!=null and s_address!=''">
+        and s_address = #{s_address}
+      </if>
+      <if test="s_sex!=null and s_sex!=''">
+        and s_sex = #{s_sex}
+      </if>
+      <if test="claa_id!=null and claa_id!=''">
+        and claa_id = #{claa_id}
+      </if>
+    </where>
+  </select>
+
+
+
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from student
+    where s_id = #{s_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kdgc.wangxianlin.entity.Student" >
+    insert into student (s_id, s_name, s_age, 
+      s_sex, s_address, claa_id
+      )
+    values (#{s_id,jdbcType=INTEGER}, #{s_name,jdbcType=VARCHAR}, #{s_age,jdbcType=VARCHAR}, 
+      #{s_sex,jdbcType=VARCHAR}, #{s_address,jdbcType=VARCHAR}, #{claa_id,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kdgc.wangxianlin.entity.Student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="s_id != null" >
+        s_id,
+      </if>
+      <if test="s_name != null" >
+        s_name,
+      </if>
+      <if test="s_age != null" >
+        s_age,
+      </if>
+      <if test="s_sex != null" >
+        s_sex,
+      </if>
+      <if test="s_address != null" >
+        s_address,
+      </if>
+      <if test="claa_id != null" >
+        claa_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="s_id != null" >
+        #{s_id,jdbcType=INTEGER},
+      </if>
+      <if test="s_name != null" >
+        #{s_name,jdbcType=VARCHAR},
+      </if>
+      <if test="s_age != null" >
+        #{s_age,jdbcType=VARCHAR},
+      </if>
+      <if test="s_sex != null" >
+        #{s_sex,jdbcType=VARCHAR},
+      </if>
+      <if test="s_address != null" >
+        #{s_address,jdbcType=VARCHAR},
+      </if>
+      <if test="claa_id != null" >
+        #{claa_id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kdgc.wangxianlin.entity.Student" >
+    update student
+    <set >
+      <if test="s_name != null" >
+        s_name = #{s_name,jdbcType=VARCHAR},
+      </if>
+      <if test="s_age != null" >
+        s_age = #{s_age,jdbcType=VARCHAR},
+      </if>
+      <if test="s_sex != null" >
+        s_sex = #{s_sex,jdbcType=VARCHAR},
+      </if>
+      <if test="s_address != null" >
+        s_address = #{s_address,jdbcType=VARCHAR},
+      </if>
+      <if test="claa_id != null" >
+        claa_id = #{claa_id,jdbcType=INTEGER},
+      </if>
+    </set>
+    where s_id = #{s_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kdgc.wangxianlin.entity.Student" >
+    update student
+    set s_name = #{s_name,jdbcType=VARCHAR},
+      s_age = #{s_age,jdbcType=VARCHAR},
+      s_sex = #{s_sex,jdbcType=VARCHAR},
+      s_address = #{s_address,jdbcType=VARCHAR},
+      claa_id = #{claa_id,jdbcType=INTEGER}
+    where s_id = #{s_id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kdgc.wangxianlin.mapper.ClassesMapper" >
+  <resultMap id="BaseResultMap" type="com.kdgc.wangxianlin.entity.Classes" >
+    <id column="class_id" property="class_id" jdbcType="INTEGER" />
+    <result column="class_name" property="class_name" jdbcType="VARCHAR" />
+    <result column="school_id" property="school_id" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    class_id, class_name, school_id
+  </sql>
+
+
+
+
+
+<!--一对一-->
+  <resultMap id="ClassesResultMap" type="com.kdgc.wangxianlin.entity.Classes" >
+    <id column="class_id" property="class_id" jdbcType="INTEGER" />
+    <result column="class_name" property="class_name" jdbcType="VARCHAR" />
+    <!--一对一-->
+    <association property="school" javaType="com.kdgc.wangxianlin.entity.School">
+      <result column="school_name" property="school_name" jdbcType="VARCHAR"/>
+    </association>
+  </resultMap>
+  <select id="selectByClassId" resultMap="ClassesResultMap" parameterType="java.lang.Integer" >
+    select c.class_name,s.school_name
+    from class c, school s
+    where c.school_id = s.id and c.class_id=#{class_id}
+  </select>
+
+<!--多对多-->
+  <resultMap id="ClassesAndStudentResultMap" type="com.kdgc.wangxianlin.entity.Classes" >
+    <id column="class_id" property="class_id" jdbcType="INTEGER" />
+    <result column="class_name" property="class_name" jdbcType="VARCHAR" />
+    <collection property="studentList" ofType="com.kdgc.wangxianlin.entity.Student">
+      <result column="s_name" property="s_name" jdbcType="VARCHAR"/>
+    </collection>
+  </resultMap>
+  <select id="selectStudentByClassesId" resultMap="ClassesAndStudentResultMap" parameterType="java.lang.Integer" >
+    select  c.class_name,s.s_name
+    from class c, student s
+    where c.class_id = s.claa_id and c.class_id=#{class_id}
+  </select>
+
+<!--关联查询-->
+  <resultMap id="collectionAndAssociation" type="com.kdgc.wangxianlin.entity.Classes" >
+    <id column="class_id" property="class_id" jdbcType="INTEGER" />
+    <result column="class_name" property="class_name" jdbcType="VARCHAR" />
+    <!--一对一-->
+    <association property="school" javaType="com.kdgc.wangxianlin.entity.School">
+      <result column="school_name" property="school_name" jdbcType="VARCHAR"/>
+    </association>
+    <!--一对多-->
+    <collection property="studentList" ofType="com.kdgc.wangxianlin.entity.Student">
+      <result column="s_name" property="s_name" jdbcType="VARCHAR"/>
+      <result column="s_age" property="s_age" jdbcType="VARCHAR" />
+      <result column="s_address" property="s_address" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  <select id="selectStudentAndSchool" resultMap="collectionAndAssociation" parameterType="java.lang.Integer" >
+    select  c.class_name,s.s_name ,sc.school_name,s.s_address,s.s_age
+    from class_wangxianlin c, student_wangxianlin s ,school_wangxianlin sc
+    where c.class_id = s.claa_id and c.school_id = sc.id and c.class_id=#{class_id}
+  </select>
+
+
+
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from class
+    where class_id = #{class_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from class
+    where class_id = #{class_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kdgc.wangxianlin.entity.Classes" >
+    insert into class (class_id, class_name, school_id
+      )
+    values (#{class_id,jdbcType=INTEGER}, #{class_name,jdbcType=VARCHAR}, #{school_id,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kdgc.wangxianlin.entity.Classes" >
+    insert into class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="class_id != null" >
+        class_id,
+      </if>
+      <if test="class_name != null" >
+        class_name,
+      </if>
+      <if test="school_id != null" >
+        school_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="class_id != null" >
+        #{class_id,jdbcType=INTEGER},
+      </if>
+      <if test="class_name != null" >
+        #{class_name,jdbcType=VARCHAR},
+      </if>
+      <if test="school_id != null" >
+        #{school_id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kdgc.wangxianlin.entity.Classes" >
+    update class
+    <set >
+      <if test="class_name != null" >
+        class_name = #{class_name,jdbcType=VARCHAR},
+      </if>
+      <if test="school_id != null" >
+        school_id = #{school_id,jdbcType=INTEGER},
+      </if>
+    </set>
+    where class_id = #{class_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kdgc.wangxianlin.entity.Classes" >
+    update class
+    set class_name = #{class_name,jdbcType=VARCHAR},
+      school_id = #{school_id,jdbcType=INTEGER}
+    where class_id = #{class_id,jdbcType=INTEGER}
+  </update>
+</mapper>

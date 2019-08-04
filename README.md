@@ -12,24 +12,3 @@ org.apache.ibatis.exceptions.PersistenceException:
 Error building SqlSession.
 The error may exist in com/kdgc/wangxianlin/dao/StudentMapper.xml
 Cause: org.apache.ibatis.builder.BuilderException: Error parsing SQL Mapper Configuration. Cause: java.io.IOException: Could not find resource com/kdgc/wangxianlin/dao/StudentMapper.xml
-
-## 加入的东东----->pom.xml
-<build>
-    <resources>
-        <resource>
-            <directory>src/main/java</directory>
-            <includes>
-                <include>**/*.xml</include>
-            </includes>
-            <filtering>true</filtering>
-        </resource>
-        <resource>
-            <directory>src/main/resources</directory>
-            <includes>
-                <include>**/*.xml</include>
-                <include>**/*.properties</include>
-            </includes>
-        </resource>
-    </resources>
-</build>
-

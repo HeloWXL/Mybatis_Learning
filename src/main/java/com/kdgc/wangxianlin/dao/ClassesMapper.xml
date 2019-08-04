@@ -10,10 +10,6 @@
     class_id, class_name, school_id
   </sql>
 
-
-
-
-
 <!--一对一-->
   <resultMap id="ClassesResultMap" type="com.kdgc.wangxianlin.entity.Classes" >
     <id column="class_id" property="class_id" jdbcType="INTEGER" />
@@ -65,9 +61,6 @@
   </select>
 
 
-
-
-
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -84,6 +77,8 @@
     values (#{class_id,jdbcType=INTEGER}, #{class_name,jdbcType=VARCHAR}, #{school_id,jdbcType=INTEGER}
       )
   </insert>
+
+
   <insert id="insertSelective" parameterType="com.kdgc.wangxianlin.entity.Classes" >
     insert into class
     <trim prefix="(" suffix=")" suffixOverrides="," >

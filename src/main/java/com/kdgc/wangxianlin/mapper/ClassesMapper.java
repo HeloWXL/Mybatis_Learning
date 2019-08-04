@@ -9,6 +9,4 @@ public interface ClassesMapper {
     List<Classes> selectStudentByClassesId(int cid);
     List<Classes> selectStudentAndSchool(int cid);
 
-
-
 }

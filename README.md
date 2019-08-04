@@ -14,7 +14,6 @@ The error may exist in com/kdgc/wangxianlin/dao/StudentMapper.xml
 Cause: org.apache.ibatis.builder.BuilderException: Error parsing SQL Mapper Configuration. Cause: java.io.IOException: Could not find resource com/kdgc/wangxianlin/dao/StudentMapper.xml
 
 ## 加入的东东----->pom.xml
-<!--扫描xml文件的位置-->
 <build>
     <resources>
         <resource>
